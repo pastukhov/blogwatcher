@@ -26,9 +26,20 @@ func (e FeedParseError) Error() string {
 	return e.Message
 }
 
+const userAgent = "Mozilla/5.0 (compatible; BlogWatcher/1.0; +https://github.com/Hyaxia/blogwatcher)"
+
+func get(client *http.Client, url string) (*http.Response, error) {
+	req, err := http.NewRequest(http.MethodGet, url, nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("User-Agent", userAgent)
+	return client.Do(req)
+}
+
 func ParseFeed(feedURL string, timeout time.Duration) ([]FeedArticle, error) {
 	client := &http.Client{Timeout: timeout}
-	response, err := client.Get(feedURL)
+	response, err := get(client, feedURL)
 	if err != nil {
 		return nil, FeedParseError{Message: fmt.Sprintf("failed to fetch feed: %v", err)}
 	}
@@ -62,7 +73,7 @@ func ParseFeed(feedURL string, timeout time.Duration) ([]FeedArticle, error) {
 
 func DiscoverFeedURL(blogURL string, timeout time.Duration) (string, error) {
 	client := &http.Client{Timeout: timeout}
-	response, err := client.Get(blogURL)
+	response, err := get(client, blogURL)
 	if err != nil {
 		return "", nil
 	}
@@ -131,7 +142,7 @@ func DiscoverFeedURL(blogURL string, timeout time.Duration) (string, error) {
 
 func isValidFeed(feedURL string, timeout time.Duration) (bool, error) {
 	client := &http.Client{Timeout: timeout}
-	response, err := client.Get(feedURL)
+	response, err := get(client, feedURL)
 	if err != nil {
 		return false, err
 	}

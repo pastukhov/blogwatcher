@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<opml version="1.0">
+    <head>
+        <title>Artem subscriptions in feedly Cloud</title>
+    </head>
+    <body>
+        <outline text="Node-RED" title="Node-RED">
+            <outline type="rss" text="Node-RED" title="Node-RED" xmlUrl="http://nodered.org/feed.xml" htmlUrl="https://nodered.org/"/>
+            <outline type="rss" text="Node-RED" title="Node-RED" xmlUrl="http://blog.nodered.org/rss/" htmlUrl="https://nodered.org"/>
+        </outline>
+        <outline text="News" title="News">
+            <outline type="rss" text="Статьи Компьютерры" title="Статьи Компьютерры" xmlUrl="http://www.computerra.ru/rss.xml" htmlUrl="https://www.computerra.ru"/>
+            <outline type="rss" text="Lifehacker" title="Lifehacker" xmlUrl="http://lifehacker.ru/feed/" htmlUrl="https://lifehacker.ru/"/>
+        </outline>
+        <outline text="Технологии" title="Технологии"/>
+        <outline text="to look" title="to look"/>
+        <outline text="Рыба" title="Рыба">
+            <outline type="rss" text="Сергей Кочетов" title="Сергей Кочетов" xmlUrl="http://kochetov.info/feed?source=ignitionfork" htmlUrl="http://kochetov.info"/>
+        </outline>
+        <outline text="graylog" title="graylog"/>
+        <outline text="Mobile" title="Mobile"/>
+        <outline text="Fish" title="Fish"/>
+        <outline text="Linux" title="Linux">
+            <outline type="rss" text="Linux.org.ru News" title="Linux.org.ru News" xmlUrl="http://linux.org.ru/rss.jsp" htmlUrl="https://www.linux.org.ru/"/>
+            <outline type="rss" text="MiniNews.opennet.ru" title="MiniNews.opennet.ru" xmlUrl="http://www.opennet.ru/opennews/opennews_mini.rss" htmlUrl="https://www.opennet.ru/opennews/mini.shtml"/>
+            <outline type="rss" text="OpenNet RSS Feeds: last_tips" title="OpenNet RSS Feeds: last_tips" xmlUrl="http://www.opennet.ru/rss.shtml?last_tips" htmlUrl="http://www.opennet.ru/"/>
+            <outline type="rss" text="OpenNews.opennet.ru" title="OpenNews.opennet.ru" xmlUrl="http://www.opennet.ru/opennews/opennews_6.rss" htmlUrl="https://www.opennet.ru/opennews/main.shtml"/>
+            <outline type="rss" text="Русскоязычное Linux-сообщество" title="Русскоязычное Linux-сообщество" xmlUrl="http://community.livejournal.com/ru_linux/data/rss" htmlUrl="https://ru-linux.livejournal.com/"/>
+        </outline>
+        <outline text="Cooking" title="Cooking">
+            <outline type="rss" text="Regina's oysters" title="Regina's oysters" xmlUrl="https://reginablog.wordpress.com/feed/" htmlUrl="https://reginablog.wordpress.com"/>
+            <outline type="rss" text="ЖЖырная утка*" title="ЖЖырная утка*" xmlUrl="http://dejur.livejournal.com/data/rss" htmlUrl="https://dejur.livejournal.com/"/>
+        </outline>
+        <outline text="умный дом" title="умный дом">
+            <outline type="rss" text="kvvhost" title="kvvhost" xmlUrl="https://kvvhost.ru/feed/" htmlUrl="https://kvvhost.ru"/>
+            <outline type="rss" text="Home Assistant" title="Home Assistant" xmlUrl="https://home-assistant.io/atom.xml" htmlUrl="https://www.home-assistant.io/"/>
+            <outline type="rss" text="Умный дом Xiaomi" title="Умный дом Xiaomi" xmlUrl="https://xiaomi-smarthome.ru/feed/" htmlUrl="https://xiaomi-smarthome.ru"/>
+            <outline type="rss" text="AlexGyver Technologies" title="AlexGyver Technologies" xmlUrl="http://AlexGyver.ru/feed/" htmlUrl="https://alexgyver.ru"/>
+            <outline type="rss" text="Release notes from Tasmota" title="Release notes from Tasmota" xmlUrl="https://github.com/arendst/Sonoff-Tasmota/releases.atom" htmlUrl="https://github.com/arendst/Tasmota/releases"/>
+            <outline type="rss" text="iHome умный дом" title="iHome умный дом" xmlUrl="https://kvshome.ru/?feed=rss2" htmlUrl="https://kvshome.ru"/>
+            <outline type="rss" text="Вастрик.ру" title="Вастрик.ру" xmlUrl="http://vas3k.ru/rss/" htmlUrl="https://vas3k.blog/rss/"/>
+            <outline type="rss" text="самопал.pro" title="самопал.pro" xmlUrl="http://samopal.pro/feed/" htmlUrl="http://samopal.pro/"/>
+            <outline type="rss" text="Форум обсуждения систем &quot;Умный дом&quot;, проектов Ардуино, OpenWRT и других DIY устройств" title="Форум обсуждения систем &quot;Умный дом&quot;, проектов Ардуино, OpenWRT и других DIY устройств" xmlUrl="http://cyber-place.ru/external.php?type=RSS2" htmlUrl="http://cyber-place.ru/"/>
+            <outline type="rss" text="Z-Wave.Me" title="Z-Wave.Me" xmlUrl="http://rus.z-wave.me/blog/rss/" htmlUrl="https://rus.z-wave.me/blog/"/>
+            <outline type="rss" text="Все статьи подряд / Умный дом / Хабр" title="Все статьи подряд / Умный дом / Хабр" xmlUrl="http://geektimes.ru/rss/hub/home_automation/" htmlUrl="https://habr.com/ru/hubs/home_automation/articles/"/>
+            <outline type="rss" text="У Павла!" title="У Павла!" xmlUrl="http://psenyukov.ru/feed/" htmlUrl="https://psenyukov.ru/"/>
+            <outline type="rss" text="Блог об электронике и технике. Товары из Китая. Обзоры и внутреннее устройство электронной техники. Обзоры, видео, тесты" title="Блог об электронике и технике. Товары из Китая. Обзоры и внутреннее устройство электронной техники. Обзоры, видео, тесты" xmlUrl="https://www.kirich.blog/rss.xml" htmlUrl="https://www.kirich.blog/"/>
+            <outline type="rss" text="Sprut.ai" title="Sprut.ai" xmlUrl="https://sprut.ai/rss.xml" htmlUrl="https://sprut.ai/rss.xml"/>
+            <outline type="rss" text="Node-RED" title="Node-RED" xmlUrl="http://blog.nodered.org/rss/" htmlUrl="https://nodered.org"/>
+        </outline>
+        <outline text="Парилка" title="Парилка"/>
+        <outline text="Security" title="Security">
+            <outline type="rss" text="BugTraq.Ru: обзор" title="BugTraq.Ru: обзор" xmlUrl="http://feeds.bugtraq.ru/bqblog" htmlUrl="https://bugtraq.ru/review/"/>
+            <outline type="rss" text="BugTraq.Ru" title="BugTraq.Ru" xmlUrl="http://bugtraq.ru/export/yandex.xml" htmlUrl="https://bugtraq.ru/"/>
+            <outline type="rss" text="Xakep" title="Xakep" xmlUrl="http://www.xakep.ru/articles/rss/default.asp" htmlUrl="https://xakep.ru"/>
+            <outline type="rss" text="Project Zero" title="Project Zero" xmlUrl="http://googleprojectzero.blogspot.com/feeds/posts/default?alt=rss" htmlUrl="https://projectzero.google/"/>
+        </outline>
+        <outline text="Persons" title="Persons">
+            <outline type="rss" text="Электроника для всех" title="Электроника для всех" xmlUrl="http://feeds.feedburner.com/easyelectronics" htmlUrl="http://easyelectronics.ru"/>
+            <outline type="rss" text="dibr" title="dibr" xmlUrl="http://dibr.livejournal.com/data/rss" htmlUrl="https://dibr.livejournal.com/"/>
+            <outline type="rss" text="Суть еды" title="Суть еды" xmlUrl="https://feeds.simplecast.com/EjkC2lgD" htmlUrl="https://sut-edy.simplecast.com"/>
+            <outline type="rss" text="Леонид Каганов" title="Леонид Каганов" xmlUrl="http://lleo.aha.ru/dnevnik/rss.xml" htmlUrl="https://lleo.me/dnevnik/"/>
+        </outline>
+        <outline text="https://blog.openebs.io" title="https://blog.openebs.io"/>
+        <outline text="Lj" title="Lj"/>
+        <outline text="Must Read" title="Must Read"/>
+        <outline text="hdd firmware" title="hdd firmware"/>
+        <outline text="Humor" title="Humor"/>
+        <outline text="kubernetes" title="kubernetes">
+            <outline type="rss" text="Kubernetes Blog" title="Kubernetes Blog" xmlUrl="http://kubernetesio.blogspot.com/feeds/posts/default" htmlUrl="https://kubernetes.io/"/>
+            <outline type="rss" text="Blog – Cloud Native Computing Foundation" title="Blog – Cloud Native Computing Foundation" xmlUrl="https://cncf.io/blog/feed" htmlUrl="https://www.cncf.io"/>
+            <outline type="rss" text="Kubernetes Podcast from Google" title="Kubernetes Podcast from Google" xmlUrl="https://kubernetespodcast.com/feeds/audio.xml" htmlUrl="https://kubernetespodcast.com"/>
+            <outline type="rss" text="Cloud Native Computing Foundation" title="Cloud Native Computing Foundation" xmlUrl="https://www.cncf.io/feed" htmlUrl="https://www.cncf.io"/>
+        </outline>
+        <outline text="OpenEBS" title="OpenEBS"/>
+        <outline text="Флибуста" title="Флибуста">
+            <outline type="rss" text="Флибустa - Вадим Панов" title="Флибустa - Вадим Панов" xmlUrl="http://flibusta.net/a/9311/rss" htmlUrl="http://flibusta.is/a/9311"/>
+            <outline type="rss" text="Флибуста - Борис Акунин" title="Флибуста - Борис Акунин" xmlUrl="http://flibusta.net/a/169/rss" htmlUrl="http://flibusta.is/a/169"/>
+        </outline>
+        <outline text="ESP8266" title="ESP8266"/>
+        <outline text="Music And Video" title="Music And Video"/>
+        <outline text="Spruit" title="Spruit"/>
+        <outline text="Работа" title="Работа">
+            <outline type="rss" text="Blog on Monitoring OpenShift, Kubernetes and Docker in Splunk" title="Blog on Monitoring OpenShift, Kubernetes and Docker in Splunk" xmlUrl="https://www.outcoldsolutions.com/blog/feed.xml" htmlUrl="https://www.outcoldsolutions.com/blog/"/>
+        </outline>
+        <outline text="Blogs" title="Blogs">
+            <outline type="rss" text="Клуб Сисадминов" title="Клуб Сисадминов" xmlUrl="http://community.livejournal.com/ru_root/data/rss" htmlUrl="https://ru-root.livejournal.com/"/>
+            <outline type="rss" text="Хабрахабр: Главная / Захабренные" title="Хабрахабр: Главная / Захабренные" xmlUrl="http://habrahabr.ru/rss/main/" htmlUrl="https://habr.com/ru/articles/"/>
+            <outline type="rss" text="Русские сисадмины!!! Присоединяйтесь!" title="Русские сисадмины!!! Присоединяйтесь!" xmlUrl="http://community.livejournal.com/ru_sysadmins/data/rss" htmlUrl="https://ru-sysadmins.livejournal.com/"/>
+        </outline>
+        <outline text="raspberry" title="raspberry">
+            <outline type="rss" text="Raspberry Pi Spy" title="Raspberry Pi Spy" xmlUrl="http://www.raspberrypi-spy.co.uk/feed/" htmlUrl="https://www.raspberrypi-spy.co.uk/"/>
+            <outline type="rss" text="OSMC" title="OSMC" xmlUrl="http://www.raspbmc.com/feed/" htmlUrl="https://osmc.tv/"/>
+        </outline>
+        <outline text="do it yourself" title="do it yourself"/>
+    </body>
+</opml>

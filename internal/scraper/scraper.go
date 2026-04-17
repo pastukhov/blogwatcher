@@ -25,9 +25,20 @@ func (e ScrapeError) Error() string {
 	return e.Message
 }
 
+const userAgent = "Mozilla/5.0 (compatible; BlogWatcher/1.0; +https://github.com/Hyaxia/blogwatcher)"
+
+func get(client *http.Client, url string) (*http.Response, error) {
+	req, err := http.NewRequest(http.MethodGet, url, nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("User-Agent", userAgent)
+	return client.Do(req)
+}
+
 func ScrapeBlog(blogURL string, selector string, timeout time.Duration) ([]ScrapedArticle, error) {
 	client := &http.Client{Timeout: timeout}
-	response, err := client.Get(blogURL)
+	response, err := get(client, blogURL)
 	if err != nil {
 		return nil, ScrapeError{Message: fmt.Sprintf("failed to fetch page: %v", err)}
 	}
