@@ -1,3 +1,18 @@
+# BlogWatcher Agent Guidelines
+
+## Feature: Machine-Readable Output (`-o json|plain`)
+
+The `blogwatcher` CLI supports the `-o` / `--output` flag for all data-listing commands (`blogs`, `articles`, `scan`).
+This flag is defined as a persistent flag on the root command in `internal/cli/root.go`.
+
+When implementing changes to these commands:
+- JSON output is controlled by the global `outputFormat` variable (package-level in `cli` package)
+- Validate `outputFormat` against allowed values: `"plain"` or `"json"`
+- Return structured data for JSON mode; preserve colored output for plain mode
+- Use the `printJSON()` helper function for JSON serialization
+
+## Git and Workflow Conventions
+
 - Delete unused or obsolete files when your changes make them irrelevant (refactors, feature removals, etc.), and revert files only when the change is yours or explicitly requested. If a git operation leaves you unsure about other agents' in-flight work, stop and coordinate instead of deleting.
 - **Before attempting to delete a file to resolve a local type/lint failure, stop and ask the user.** Other agents are often editing adjacent files; deleting their work to silence an error is never acceptable without explicit approval.
 - NEVER edit `.env` or any environment variable files—only the user may change them.

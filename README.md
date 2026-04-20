@@ -10,6 +10,7 @@ A Go CLI tool to track blog articles, detect new posts, and manage read/unread s
 -   **Blog Filtering** - View articles from specific blogs
 -   **Duplicate Prevention** - Never tracks the same article twice
 -   **Colored CLI Output** - User-friendly terminal interface
+-   **Machine-Readable Output** - JSON output format for scripting and automation
 
 ## Installation
 
@@ -91,6 +92,41 @@ blogwatcher read-all
 
 # Mark all unread articles as read for a blog (skip prompt)
 blogwatcher read-all --blog "Tech Blog" --yes
+```
+
+### Machine-Readable Output
+
+BlogWatcher supports JSON output for automation and scripting:
+
+```bash
+# JSON output for blogs
+blogwatcher -o json blogs
+
+# JSON output for articles
+blogwatcher -o json articles
+blogwatcher -o json articles --all
+blogwatcher -o json articles --blog "Tech Blog"
+
+# JSON output for scan results
+blogwatcher -o json scan
+blogwatcher -o json scan "Tech Blog"
+```
+
+Default output format is `plain` (colored terminal output). Use `-o json` or `--output json` for machine-readable JSON output.
+
+Example JSON output for articles:
+```json
+[
+  {
+    "id": 42,
+    "blog": "Tech Blog",
+    "title": "New Kubernetes Features",
+    "url": "https://example.com/article",
+    "published": "2024-01-15T10:30:00Z",
+    "discovered": "2024-01-15T11:00:00Z",
+    "is_read": false
+  }
+]
 ```
 
 ## How It Works

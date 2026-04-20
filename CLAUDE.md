@@ -14,7 +14,20 @@ go test ./...
 
 # Running the project
 go run ./cmd/blogwatcher ...
+
+# Machine-readable output
+go run ./cmd/blogwatcher -o json blogs
+go run ./cmd/blogwatcher -o json articles
+go run ./cmd/blogwatcher -o json scan
 ```
+
+## Output Formats
+
+The `-o` / `--output` flag controls output format (default: `plain`):
+- `plain` - Human-readable colored output (default)
+- `json` - Machine-readable JSON format
+
+Supported by: `blogs`, `articles`, `scan` commands
 
 ## Architecture
 
