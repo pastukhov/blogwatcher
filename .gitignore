@@ -5,3 +5,4 @@ list_blogs.txt
 build/
 blogwatcher.egg-info/
 */__pycache__
+/blogwatcher
