@@ -136,7 +136,6 @@ func newBlogsCommand() *cobra.Command {
 func newScanCommand() *cobra.Command {
 	var silent bool
 	var workers int
-	var since int64
 
 	cmd := &cobra.Command{
 		Use:   "scan [blog_name]",
@@ -167,7 +166,7 @@ func newScanCommand() *cobra.Command {
 					return printJSON([]scanner.ScanResult{*result})
 				}
 				if !silent {
-					printScanResult(*result, since, db)
+					printScanResult(*result)
 				}
 			} else {
 				blogs, err := db.ListBlogs()
@@ -191,7 +190,7 @@ func newScanCommand() *cobra.Command {
 				totalNew := 0
 				for _, result := range results {
 					if !silent {
-						printScanResult(result, since, db)
+						printScanResult(result)
 					}
 					totalNew += result.NewArticles
 				}
@@ -213,7 +212,6 @@ func newScanCommand() *cobra.Command {
 	}
 	cmd.Flags().BoolVarP(&silent, "silent", "s", false, "Only output 'scan done' when complete")
 	cmd.Flags().IntVarP(&workers, "workers", "w", 8, "Number of concurrent workers when scanning all blogs")
-	cmd.Flags().Int64Var(&since, "since", 0, "Show only articles added since Unix timestamp (e.g. $(date +%s))")
 	return cmd
 }
 
@@ -437,7 +435,7 @@ func printJSON(v any) error {
 	return enc.Encode(v)
 }
 
-func printScanResult(result scanner.ScanResult, since int64, db *storage.Database) {
+func printScanResult(result scanner.ScanResult) {
 	statusColor := color.FgWhite
 	if result.NewArticles > 0 {
 		statusColor = color.FgGreen
@@ -457,7 +455,6 @@ func printScanResult(result scanner.ScanResult, since int64, db *storage.Databas
 	}
 	fmt.Printf("    Source: %s | Found: %d | ", sourceLabel, result.TotalFound)
 	color.New(statusColor).Printf("New: %d\n", result.NewArticles)
-
 }
 
 func printArticle(article model.Article, blogName string) {
