@@ -76,6 +76,9 @@ blogwatcher articles --all
 
 # List articles from a specific blog
 blogwatcher articles --blog "Tech Blog"
+
+# List articles discovered after a Unix timestamp (e.g., last 24 hours)
+blogwatcher articles --since $(date -d '1 day ago' +%s)
 ```
 
 ### Managing Read Status
@@ -106,6 +109,7 @@ blogwatcher -o json blogs
 blogwatcher -o json articles
 blogwatcher -o json articles --all
 blogwatcher -o json articles --blog "Tech Blog"
+blogwatcher -o json articles --since 1704067200
 
 # JSON output for scan results
 blogwatcher -o json scan
@@ -113,6 +117,8 @@ blogwatcher -o json scan "Tech Blog"
 ```
 
 Default output format is `plain` (colored terminal output). Use `-o json` or `--output json` for machine-readable JSON output.
+
+The `--since` flag is available for the `articles` command to filter articles by discovery date (Unix timestamp).
 
 Example JSON output for articles:
 ```json

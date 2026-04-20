@@ -29,6 +29,12 @@ The `-o` / `--output` flag controls output format (default: `plain`):
 
 Supported by: `blogs`, `articles`, `scan` commands
 
+## Filtering
+
+The `--since` flag filters articles by Unix timestamp (discovery date):
+- Supported by: `articles` command only
+- Usage: `blogwatcher articles --since 1704067200` or `blogwatcher -o json articles --since $(date +%s)`
+
 ## Architecture
 
 ### Database

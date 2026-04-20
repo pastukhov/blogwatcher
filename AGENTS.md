@@ -11,6 +11,13 @@ When implementing changes to these commands:
 - Return structured data for JSON mode; preserve colored output for plain mode
 - Use the `printJSON()` helper function for JSON serialization
 
+## Feature: Date Filtering (`--since`)
+
+The `--since` flag filters articles by Unix timestamp (discovery date).
+- **Supported by**: `articles` command only
+- Implementation: `internal/controller/controller.go:GetArticles()` applies filtering when `since > 0`
+- When adding similar filtering to other commands, follow the same pattern in the controller layer
+
 ## Git and Workflow Conventions
 
 - Delete unused or obsolete files when your changes make them irrelevant (refactors, feature removals, etc.), and revert files only when the change is yours or explicitly requested. If a git operation leaves you unsure about other agents' in-flight work, stop and coordinate instead of deleting.
