@@ -68,7 +68,7 @@ func RemoveBlog(db *storage.Database, name string) error {
 	return err
 }
 
-func GetArticles(db *storage.Database, showAll bool, blogName string) ([]model.Article, map[int64]string, error) {
+func GetArticles(db *storage.Database, showAll bool, since int64, blogName string) ([]model.Article, map[int64]string, error) {
 	var blogID *int64
 	if blogName != "" {
 		blog, err := db.GetBlogByName(blogName)
@@ -81,10 +81,28 @@ func GetArticles(db *storage.Database, showAll bool, blogName string) ([]model.A
 		blogID = &blog.ID
 	}
 
+	var sinceClause string
+	if since > 0 {
+		sinceClause = " AND (published_date >= ? OR discovered_date >= ?)"
+	}
+
 	articles, err := db.ListArticles(!showAll, blogID)
 	if err != nil {
 		return nil, nil, err
 	}
+
+	var filtered []model.Article
+	for _, article := range articles {
+		publishedOk := article.PublishedDate == nil || article.PublishedDate.Unix() >= since
+		discoveredOk := article.DiscoveredDate != nil && article.DiscoveredDate.Unix() >= since
+		
+		if sinceClause != "" && (publishedOk || discoveredOk) {
+			filtered = append(filtered, article)
+		} else if sinceClause == "" {
+			filtered = append(filtered, article)
+		}
+	}
+
 	blogs, err := db.ListBlogs()
 	if err != nil {
 		return nil, nil, err
@@ -94,7 +112,7 @@ func GetArticles(db *storage.Database, showAll bool, blogName string) ([]model.A
 		blogNames[blog.ID] = blog.Name
 	}
 
-	return articles, blogNames, nil
+	return filtered, blogNames, nil
 }
 
 func MarkArticleRead(db *storage.Database, articleID int64) (model.Article, error) {
