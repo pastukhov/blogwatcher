@@ -2,6 +2,7 @@ package cli
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"os"
 	"strconv"
@@ -86,6 +87,10 @@ func newBlogsCommand() *cobra.Command {
 		Use:   "blogs",
 		Short: "List all tracked blogs.",
 		RunE: func(cmd *cobra.Command, args []string) error {
+			if outputFormat != "plain" && outputFormat != "json" {
+				return fmt.Errorf("invalid output format %q: use json or plain", outputFormat)
+			}
+
 			db, err := storage.OpenDatabase("")
 			if err != nil {
 				return err
@@ -96,9 +101,17 @@ func newBlogsCommand() *cobra.Command {
 				return err
 			}
 			if len(blogs) == 0 {
+				if outputFormat == "json" {
+					return printJSON([]model.Blog{})
+				}
 				fmt.Println("No blogs tracked yet. Use 'blogwatcher add' to add one.")
 				return nil
 			}
+
+			if outputFormat == "json" {
+				return printJSON(blogs)
+			}
+
 			color.New(color.FgCyan, color.Bold).Printf("Tracked blogs (%d):\n\n", len(blogs))
 			for _, blog := range blogs {
 				color.New(color.FgWhite, color.Bold).Printf("  %s\n", blog.Name)
@@ -123,12 +136,17 @@ func newBlogsCommand() *cobra.Command {
 func newScanCommand() *cobra.Command {
 	var silent bool
 	var workers int
+	var since int64
 
 	cmd := &cobra.Command{
 		Use:   "scan [blog_name]",
 		Short: "Scan blogs for new articles.",
 		Args:  cobra.MaximumNArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
+			if outputFormat != "plain" && outputFormat != "json" {
+				return fmt.Errorf("invalid output format %q: use json or plain", outputFormat)
+			}
+
 			db, err := storage.OpenDatabase("")
 			if err != nil {
 				return err
@@ -145,8 +163,11 @@ func newScanCommand() *cobra.Command {
 					printError(err)
 					return markError(err)
 				}
+				if outputFormat == "json" {
+					return printJSON([]scanner.ScanResult{*result})
+				}
 				if !silent {
-					printScanResult(*result)
+					printScanResult(*result, since, db)
 				}
 			} else {
 				blogs, err := db.ListBlogs()
@@ -157,31 +178,34 @@ func newScanCommand() *cobra.Command {
 					fmt.Println("No blogs tracked yet. Use 'blogwatcher add' to add one.")
 					return nil
 				}
-				if !silent {
-					color.New(color.FgCyan).Printf("Scanning %d blog(s)...\n\n", len(blogs))
+				if outputFormat != "json" && !silent {
+					color.New(color.FgCyan).Printf("Scanning %d blog(s)...\\n\\n", len(blogs))
 				}
 				results, err := scanner.ScanAllBlogs(db, workers)
 				if err != nil {
 					return err
 				}
+				if outputFormat == "json" {
+					return printJSON(results)
+				}
 				totalNew := 0
 				for _, result := range results {
 					if !silent {
-						printScanResult(result)
+						printScanResult(result, since, db)
 					}
 					totalNew += result.NewArticles
 				}
 				if !silent {
 					fmt.Println()
 					if totalNew > 0 {
-						color.New(color.FgGreen, color.Bold).Printf("Found %d new article(s) total!\n", totalNew)
+						color.New(color.FgGreen, color.Bold).Printf("Found %d new article(s) total!\\n", totalNew)
 					} else {
 						color.New(color.FgYellow).Println("No new articles found.")
 					}
 				}
 			}
 
-			if silent {
+			if silent && outputFormat != "json" {
 				fmt.Println("scan done")
 			}
 			return nil
@@ -189,34 +213,59 @@ func newScanCommand() *cobra.Command {
 	}
 	cmd.Flags().BoolVarP(&silent, "silent", "s", false, "Only output 'scan done' when complete")
 	cmd.Flags().IntVarP(&workers, "workers", "w", 8, "Number of concurrent workers when scanning all blogs")
+	cmd.Flags().Int64Var(&since, "since", 0, "Show only articles added since Unix timestamp (e.g. $(date +%s))")
 	return cmd
 }
 
 func newArticlesCommand() *cobra.Command {
 	var showAll bool
+	var since int64
 	var blogName string
 
 	cmd := &cobra.Command{
 		Use:   "articles",
 		Short: "List articles.",
 		RunE: func(cmd *cobra.Command, args []string) error {
+			if outputFormat != "plain" && outputFormat != "json" {
+				return fmt.Errorf("invalid output format %q: use json or plain", outputFormat)
+			}
+
 			db, err := storage.OpenDatabase("")
 			if err != nil {
 				return err
 			}
 			defer db.Close()
-			articles, blogNames, err := controller.GetArticles(db, showAll, blogName)
+			articles, blogNames, err := controller.GetArticles(db, showAll, since, blogName)
 			if err != nil {
 				printError(err)
 				return markError(err)
 			}
 			if len(articles) == 0 {
+				if outputFormat == "json" {
+					return printJSON([]map[string]any{})
+				}
 				if showAll {
 					fmt.Println("No articles found.")
 				} else {
 					color.New(color.FgGreen).Println("No unread articles!")
 				}
 				return nil
+			}
+
+			if outputFormat == "json" {
+				articlesJSON := make([]map[string]any, len(articles))
+				for i, article := range articles {
+					articlesJSON[i] = map[string]any{
+						"id":              article.ID,
+						"blog":            blogNames[article.BlogID],
+						"title":           article.Title,
+						"url":             article.URL,
+						"published":       article.PublishedDate,
+						"discovered":      article.DiscoveredDate,
+						"is_read":         article.IsRead,
+					}
+				}
+				return printJSON(articlesJSON)
 			}
 
 			label := "Unread articles"
@@ -233,6 +282,7 @@ func newArticlesCommand() *cobra.Command {
 
 	cmd.Flags().BoolVarP(&showAll, "all", "a", false, "Show all articles (including read)")
 	cmd.Flags().StringVarP(&blogName, "blog", "b", "", "Filter by blog name")
+	cmd.Flags().Int64Var(&since, "since", 0, "Show only articles added since Unix timestamp (e.g. 1704067200)")
 	return cmd
 }
 
@@ -281,7 +331,7 @@ func newReadAllCommand() *cobra.Command {
 			}
 			defer db.Close()
 
-			articles, blogNames, err := controller.GetArticles(db, false, blogName)
+			articles, blogNames, err := controller.GetArticles(db, false, 0, blogName)
 			if err != nil {
 				printError(err)
 				return markError(err)
@@ -381,7 +431,13 @@ func newUnreadCommand() *cobra.Command {
 	return cmd
 }
 
-func printScanResult(result scanner.ScanResult) {
+func printJSON(v any) error {
+	enc := json.NewEncoder(os.Stdout)
+	enc.SetIndent("", "  ")
+	return enc.Encode(v)
+}
+
+func printScanResult(result scanner.ScanResult, since int64, db *storage.Database) {
 	statusColor := color.FgWhite
 	if result.NewArticles > 0 {
 		statusColor = color.FgGreen
@@ -401,6 +457,7 @@ func printScanResult(result scanner.ScanResult) {
 	}
 	fmt.Printf("    Source: %s | Found: %d | ", sourceLabel, result.TotalFound)
 	color.New(statusColor).Printf("New: %d\n", result.NewArticles)
+
 }
 
 func printArticle(article model.Article, blogName string) {

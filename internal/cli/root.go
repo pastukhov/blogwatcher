@@ -8,6 +8,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var outputFormat string
+
 func NewRootCommand() *cobra.Command {
 	rootCmd := &cobra.Command{
 		Use:           "blogwatcher",
@@ -17,6 +19,7 @@ func NewRootCommand() *cobra.Command {
 	}
 	rootCmd.Version = version.Version
 	rootCmd.SetVersionTemplate("{{.Version}}\n")
+	rootCmd.PersistentFlags().StringVarP(&outputFormat, "output", "o", "plain", "Output format: plain|json")
 	rootCmd.AddCommand(newAddCommand())
 	rootCmd.AddCommand(newRemoveCommand())
 	rootCmd.AddCommand(newBlogsCommand())
