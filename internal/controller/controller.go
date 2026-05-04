@@ -165,7 +165,26 @@ func ImportOPML(db *storage.Database, r io.Reader) (added int, skipped int, err 
 	if err != nil {
 		return 0, 0, err
 	}
+
+	// deduplicate feeds within the OPML by FeedURL
+	seen := make(map[string]bool, len(feeds))
+	uniqueFeeds := make([]opml.Feed, 0, len(feeds))
 	for _, feed := range feeds {
+		key := feed.FeedURL
+		if key == "" {
+			key = feed.SiteURL
+		}
+		if key == "" {
+			continue
+		}
+		if seen[key] {
+			continue
+		}
+		seen[key] = true
+		uniqueFeeds = append(uniqueFeeds, feed)
+	}
+
+	for _, feed := range uniqueFeeds {
 		siteURL := feed.SiteURL
 		if siteURL == "" {
 			siteURL = feed.FeedURL
